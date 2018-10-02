@@ -1,0 +1,228 @@
+Question-1
+
+import java.util.*;
+public class ArrayRecursion{
+	public static int search(int arr[],int n,int x){
+		
+		if (n<0){}
+		else if(arr[n]==x){
+			return arr[n];
+		}
+		n=n-1;
+		return search(arr,n,x);
+	}
+    public static void main(String[] args){
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter the size of the array");
+		int n = sc.nextInt();
+		int arr[] = new int[n];
+		System.out.println("Enter the elements of the array");
+		for(int i=0;i<n;i++){
+			arr[i]=sc.nextInt();
+		}
+		System.out.println("Enter the element to search in the array");
+		int x = sc.nextInt();
+		int y = search(arr,n-1,x);
+		System.out.println(y+" is present in the array");
+	}
+}	
+
+Question-2
+
+import java.util.Scanner;
+public class revarray
+{
+	public static void swap(int []a, int i, int j)
+	{
+		int tmp = a[i];
+		a[i] = a[j];
+		a[j] = tmp;
+	}
+	public static void reverseA(int []a,int s,int e)
+	{
+		if(e < 0) return;
+		if(s < e)
+		{
+			swap(a,s,e);
+			reverseA(a,s + 1, e - 1);
+		}
+
+	}
+	public static void main(String args[])
+	{
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter the size of array");
+		int n = sc.nextInt();
+		int []a = new int[n];
+		for(int i = 0; i < n; i++) a[i] = sc.nextInt();
+		reverseA(a, 0, n - 1);
+		for(int i = 0; i < n; i++) System.out.print(a[i]+" ");
+	}
+}
+
+Question-3
+
+import java.util.Scanner;
+public class fibbo
+{
+	public static int fibbona(int n)
+	{
+		if(n == 0 || n == 1) return n;
+		return fibbona(n - 1) + fibbona(n - 2); 
+	}
+	public static void main(String args[])
+	{
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter the value of n");
+		int n = sc.nextInt();
+		int f = fibbona(n);
+		System.out.println(n+"th number in series is "+f);
+	}
+}
+
+Question-4
+
+import java.util.Scanner;
+public class power 
+{
+	private static int t;
+	power(int c)
+	{
+		t = c;
+	}
+	public static int powerfind(int x,int y)
+	{
+		if(y == 0) return x/t;
+		return powerfind(x*t,--y);
+	}
+	public static void main(String args[])
+	{
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter the x");
+		int x = sc.nextInt();
+		System.out.println("Enter the y");
+		int y = sc.nextInt();
+		power o = new power(x);
+		int r = o.powerfind(x,y);
+		System.out.println("The value is "+r);
+	}
+}
+
+Question-5
+
+import java.util.Scanner;
+public class sumofdigit
+{
+	public static int sod(int n)
+	{
+		if(n <= 0) return 0;
+		return (n % 10 + sod(n/10));
+
+	}
+	public static void main(String args[])
+	{
+		int c = 0; 
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter the number");
+		String s = sc.next();
+		int a = Integer.parseInt(s);
+		int r = sod(a);
+		System.out.println("sum is "+ r);
+	}
+}
+
+Question-6
+
+import java.util.Scanner;
+public class removecons
+{
+	public static final int index(String s) 
+	{
+	    for (int c = s.length()-1; c > 0; c--) 
+	    {
+	        if(s.charAt(c) == s.charAt(c-1))
+	        {
+	            return c;
+	        }
+	        else
+	        {
+	            break;
+	        }
+	    }
+	    return -1;
+	}
+	static public String remove(String str)
+	{
+	    int i = str.length()-1;
+	    int index = index(str);
+	    if(str.equals("") || str.length() == 1)
+	        return str;
+	    else if(index != -1)
+	        return remove(str.substring(0,index));
+	    else
+	        return remove(str.substring(0,i)) + str.charAt(i);
+	}
+	public static void main(String args[])
+	{
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter the string");
+		String s = sc.nextLine();
+		String r = remove(s);
+		System.out.println("after alter string is "+ r);		
+	}
+}
+
+Question-7
+
+import java.util.*;
+
+public class bracketb
+{
+	private static Scanner sc = new Scanner(System.in);
+	private static String open = "({[<";
+	private static String close = ")}]>";
+	
+	public static boolean checkbrackets(String str , int beg, int end)
+	{
+		
+		if (beg > end) 
+			return true;
+		if (end == 1 || close.contains(Character.toString(str.charAt(0)))) 
+			return false;
+		String brac = Character.toString(str.charAt(beg)); 
+		
+		if (open.contains(brac)) 
+		{  
+			int check = open.indexOf(brac); 
+			String brac_close = Character.toString(close.charAt(check)); 
+			if (!str.contains(brac_close)) 
+				return false;
+		}
+		
+		if (close.contains(brac)) {
+			int t = beg-1;
+			int check = close.indexOf(brac);
+			String brac_str = Character.toString(str.charAt(t));
+			String brac_open = Character.toString(open.charAt(check));
+			
+			while (!open.contains(brac_str)) 
+			{ 
+				t--;
+				brac_str = Character.toString(str.charAt(t));
+			}
+			
+			if (!brac_str.equals(brac_open)) 
+				return false;
+			else
+				return true;
+		} 
+		
+		return checkbrackets(str,++beg,end);
+	}
+	public static void main(String[] args) {
+		System.out.print("Enter a string : ");
+		String s = sc.nextLine();
+		System.out.println("Is string is balanced : " + checkbrackets(s,0,s.length()));
+	}
+	
+}
